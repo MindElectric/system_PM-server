@@ -1,21 +1,21 @@
 import { Request, Response } from "express"
 import Material from "../model/Material.model"
 
-// export const getMaterial = async (req: Request, res: Response) => {
-//     try {
-//         const material = await Material.findAll()
+export const getMaterial = async (req: Request, res: Response) => {
+    try {
+        const material = await Material.findAll()
 
-//         if (!material) {
-//             return res.status(404).json({
-//                 error: 'Material no encontrado'
-//             })
-//         }
-//         res.json({ data: material });
+        if (!material) {
+            return res.status(404).json({
+                error: 'Material no encontrado'
+            })
+        }
+        res.json({ data: material });
 
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 export const getMaterialById = async (req: Request, res: Response) => {

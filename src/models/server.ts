@@ -2,6 +2,7 @@ import express from "express";
 import inventarioRouter from "../router";
 import materialRouter from "../routes";
 import colors from "colors";
+import cors, { CorsOptions } from "cors";
 import db from "../config/db";
 
 //Conectar a base de datos
@@ -18,6 +19,20 @@ async function connectDB() {
 connectDB();
 
 const server = express()
+
+// Permitir conexiones
+const corsOptions: CorsOptions = {
+    origin: function (origin, callback) {
+        if (origin === process.env.FRONTEND_URL) {
+            // Permitir conexion origen
+            callback(null, true)
+        } else {
+            // Denegar conexion origne
+            callback(new Error('Error de CORS'))
+        }
+    }
+}
+server.use(cors(corsOptions))
 
 //Leer datos de formularios
 server.use(express.json());

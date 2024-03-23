@@ -2,14 +2,13 @@ import { Router } from "express";
 
 import { body, param } from "express-validator";
 import { handleInputErrors } from "./middleware";
-import { createMaterial, deleteMaterial, getMaterialById, updateMaterial } from "./handlers/material";
+import { createMaterial, deleteMaterial, getMaterial, getMaterialById, updateMaterial } from "./handlers/material";
 
 const router = Router();
 
 // Routing Material
-// router.get('/', (req, res) => {
-//     getMaterial
-// });
+router.get('/', getMaterial
+);
 
 router.get('/:id',
     param('id').isInt().withMessage("ID no  valido"),

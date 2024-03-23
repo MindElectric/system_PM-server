@@ -1,8 +1,8 @@
 import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from "sequelize-typescript";
 import Marca from "./Marca.model";
 import Area from "./Area.model";
-import Proveedor from "./Proveedor.model";
 import CategoriaMaterial from "./Categoria_Material.model";
+
 
 @Table({
     tableName: 'material',
@@ -27,7 +27,7 @@ class Material extends Model {
     cantidad: number;
 
     @Column({
-        type: DataType.STRING,
+        type: DataType.STRING(30),
         allowNull: false
     })
     codigo: string;
@@ -37,6 +37,18 @@ class Material extends Model {
         allowNull: false
     })
     costo: number;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    minimo: number;
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false
+    })
+    maximo: number;
 
     @ForeignKey(() => Marca)
     @Column
@@ -51,13 +63,6 @@ class Material extends Model {
 
     @BelongsTo(() => Area)
     area: Area;
-
-    @ForeignKey(() => Proveedor)
-    @Column
-    id_proveedor: number;
-
-    @BelongsTo(() => Proveedor)
-    proveedor: Proveedor;
 
     @ForeignKey(() => CategoriaMaterial)
     @Column
