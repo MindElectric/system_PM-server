@@ -1,7 +1,9 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, BelongsToMany } from "sequelize-typescript";
 import Marca from "./Marca.model";
 import Area from "./Area.model";
 import CategoriaMaterial from "./Categoria_Material.model";
+import Proveedor from "./Proveedor.model";
+import MaterialProveedor from "./Material_Proveedor.model";
 
 
 @Table({
@@ -70,6 +72,9 @@ class Material extends Model {
 
     @BelongsTo(() => CategoriaMaterial)
     categoriaMaterial: CategoriaMaterial;
+
+    @BelongsToMany(() => Proveedor, () => MaterialProveedor)
+    proveedores: Proveedor[];
 }
 
 export default Material;

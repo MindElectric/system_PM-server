@@ -1,9 +1,28 @@
 import { Request, Response } from "express"
 import Material from "../model/Material.model"
+import Marca from "../model/Marca.model"
+import Area from "../model/Area.model"
+import CategoriaMaterial from "../model/Categoria_Material.model"
+import Proveedor from "../model/Proveedor.model"
+import MaterialProveedor from "../model/Material_Proveedor.model"
 
 export const getMaterial = async (req: Request, res: Response) => {
     try {
-        const material = await Material.findAll()
+        const material = await Material.findAll(
+            {
+                include: [
+                    { model: Marca, as: 'marca' },
+                    { model: Area, as: 'area' },
+                    { model: CategoriaMaterial, as: 'categoriaMaterial' },
+                    {
+                        model: Proveedor,
+                        as: 'proveedores',
+                        through: { as: "MaterialProveedor" }
+                    }
+                ]
+            }
+        )
+
 
         if (!material) {
             return res.status(404).json({

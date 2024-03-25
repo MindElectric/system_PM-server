@@ -1,4 +1,6 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, BelongsToMany } from "sequelize-typescript";
+import Material from "./Material.model";
+import MaterialProveedor from "./Material_Proveedor.model";
 
 @Table({
     tableName: 'proveedor',
@@ -27,6 +29,10 @@ class Proveedor extends Model {
         allowNull: false
     })
     contacto: string;
+
+    @BelongsToMany(() => Material, () => MaterialProveedor)
+    materials: Material[];
+
 }
 
 export default Proveedor;
