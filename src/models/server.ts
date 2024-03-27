@@ -1,6 +1,6 @@
 import express from "express";
-import inventarioRouter from "../router";
-import materialRouter from "../routes";
+import inventarioRouter from "../routes/marca_route";
+import materialRouter from "../routes/material_route";
 import colors from "colors";
 import cors, { CorsOptions } from "cors";
 import db from "../config/db";
@@ -32,7 +32,7 @@ const corsOptions: CorsOptions = {
         }
     }
 }
-server.use(cors(corsOptions))
+//server.use(cors(corsOptions))
 
 //Leer datos de formularios
 server.use(express.json());

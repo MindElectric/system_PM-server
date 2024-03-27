@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createMarca, deleteMarca, getMarcaById, updateMarca } from "./handlers/marca";
+import { createMarca, deleteMarca, getMarcaById, updateMarca } from "../handlers/marca";
 import { body, param } from "express-validator";
-import { handleInputErrors } from "./middleware";
+import { handleInputErrors } from "../middleware";
 
 const router = Router()
 

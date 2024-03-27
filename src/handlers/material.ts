@@ -8,6 +8,7 @@ import MaterialProveedor from "../model/Material_Proveedor.model"
 
 export const getMaterial = async (req: Request, res: Response) => {
     try {
+        // Consulta para obtener todos los datos de material
         const material = await Material.findAll(
             {
                 include: [
@@ -42,7 +43,18 @@ export const getMaterialById = async (req: Request, res: Response) => {
         //console.log(req.params.id)
         const { id } = req.params;
         //Revisar si la marca exista
-        const material = await Material.findByPk(id);
+        const material = await Material.findByPk(id, {
+            include: [
+                { model: Marca, as: 'marca' },
+                { model: Area, as: 'area' },
+                { model: CategoriaMaterial, as: 'categoriaMaterial' },
+                {
+                    model: Proveedor,
+                    as: 'proveedores',
+                    through: { as: "MaterialProveedor" }
+                }
+            ]
+        });
 
         if (!material) {
             return res.status(404).json({

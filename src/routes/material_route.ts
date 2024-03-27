@@ -1,8 +1,8 @@
 import { Router } from "express";
 
 import { body, param } from "express-validator";
-import { handleInputErrors } from "./middleware";
-import { createMaterial, deleteMaterial, getMaterial, getMaterialById, updateMaterial } from "./handlers/material";
+import { handleInputErrors } from "../middleware";
+import { createMaterial, deleteMaterial, getMaterial, getMaterialById, updateMaterial } from "../handlers/material";
 
 const router = Router();
 
