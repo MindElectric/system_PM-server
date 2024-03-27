@@ -68,6 +68,8 @@ export const getMaterialById = async (req: Request, res: Response) => {
     }
 };
 
+
+//TODO: Posiblemente cambiar esto
 export const createMaterial = async (req: Request, res: Response) => {
     try {
         const material = Material.create(req.body);

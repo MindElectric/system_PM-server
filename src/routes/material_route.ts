@@ -19,7 +19,7 @@ router.get('/:id',
 router.post('/',
     //Validation
     body('descripcion').notEmpty().withMessage("La descripción no puede ser vacía"),
-    body('cantidad').notEmpty().withMessage("La cantidad no puede ser vacía"),
+    body('cantidad').isInt().notEmpty().withMessage("La cantidad no puede ser vacía"),
     body('codigo').notEmpty().withMessage("El código no puede ser vacío"),
     body('costo').notEmpty().withMessage("El costo no puede ser vacío"),
     body('id_marca').notEmpty().withMessage("El id de marca no puede ser vacío").isInt().withMessage("El id de marca debe ser un número entero"),

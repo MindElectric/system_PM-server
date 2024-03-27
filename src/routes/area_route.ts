@@ -1,37 +1,39 @@
 import { Router } from "express";
-import { createMarca, deleteMarca, getMarca, getMarcaById, updateMarca } from "../handlers/marca";
+
 import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware";
+import { createArea, deleteArea, getArea, getAreabyId, updateArea } from "../handlers/area";
 
-const router = Router()
+const router = Router();
 
-// Routing
-router.get("/", getMarca);
+router.get('/', getArea);
 
 router.get('/:id',
     param('id').isInt().withMessage("ID no  valido"),
     handleInputErrors,
-    getMarcaById
+    getAreabyId
 );
 
-router.post('/',
-    //Validation
-    body('nombre').notEmpty().withMessage("El nombre de marca no puede ser vacio"),
+router.post(
+    '/',
+    // Validation
+    body('nombre').notEmpty().withMessage("El nombre de proveedor no puede ser vacia"),
     handleInputErrors,
-    createMarca
-);
+    createArea
+)
 
 router.put('/:id',
     param('id').isInt().withMessage("ID no  valido"),
-    body('nombre').notEmpty().withMessage("El nombre de marca no puede ser vacio"),
+    body('nombre').notEmpty().withMessage("El nombre de proveedor no puede ser vacia"),
     handleInputErrors,
-    updateMarca
+    updateArea
 );
 
 router.delete('/:id',
     param('id').isInt().withMessage("ID no  valido"),
     handleInputErrors,
-    deleteMarca
+    deleteArea
 )
+
 
 export default router;

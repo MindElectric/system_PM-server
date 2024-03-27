@@ -1,6 +1,9 @@
 import express from "express";
-import inventarioRouter from "../routes/marca_route";
+import marcaRouter from "../routes/marca_route";
 import materialRouter from "../routes/material_route";
+import categoria_materialRouter from "../routes/categoria_material_route";
+import proveedorRouter from "../routes/proveedor_route";
+import areaRouter from "../routes/area_route";
 import colors from "colors";
 import cors, { CorsOptions } from "cors";
 import db from "../config/db";
@@ -32,12 +35,16 @@ const corsOptions: CorsOptions = {
         }
     }
 }
-//server.use(cors(corsOptions))
+server.use(cors(corsOptions))
 
 //Leer datos de formularios
 server.use(express.json());
 
-server.use("/api/marca", inventarioRouter);
+server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
+server.use("/api/categoria_material", categoria_materialRouter);
+server.use('/api/proveedor', proveedorRouter);
+server.use('/api/area', areaRouter);
+
 
 export default server;
