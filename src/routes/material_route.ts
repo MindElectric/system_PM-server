@@ -11,7 +11,7 @@ router.get('/', getMaterial
 );
 
 router.get('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     getMaterialById
 );
@@ -31,13 +31,13 @@ router.post('/',
 );
 
 router.put("/:id",
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     updateMaterial
 );
 
 router.delete('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     deleteMaterial
 )

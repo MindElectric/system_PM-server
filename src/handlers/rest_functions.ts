@@ -37,7 +37,7 @@ export const getById = async (model: any, req: Request, res: Response) => {
 export const createEntity = async (model: any, req: Request, res: Response) => {
     try {
         const entity = model.create(req.body);
-        res.json({ data: entity });
+        res.status(201).json({ data: entity });
     } catch (error) {
         console.log(error);
     }

@@ -9,7 +9,7 @@ const router = Router();
 router.get('/', getProveedor)
 
 router.get('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     getProveedorbyId
 );
@@ -25,7 +25,7 @@ router.post(
 )
 
 router.put('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     body('nombre').notEmpty().withMessage("El nombre de proveedor no puede ser vacia"),
     body('contacto').notEmpty().withMessage("El contacto de proveedor no puede ser vacia"),
     handleInputErrors,
@@ -33,7 +33,7 @@ router.put('/:id',
 );
 
 router.delete('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     deleteProveedor
 )

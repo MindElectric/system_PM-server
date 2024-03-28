@@ -10,7 +10,7 @@ const router = Router();
 router.get('/', getCategoriaMaterial);
 
 router.get('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     getCategoriaMaterialbyId
 );
@@ -23,14 +23,14 @@ router.post('/',
 );
 
 router.put('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     body('nombre').notEmpty().withMessage("El nombre de categoria no puede ser vacia"),
     handleInputErrors,
     updateCategoriaMaterial
 );
 
 router.delete('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     deleteCategoriaMaterial
 )

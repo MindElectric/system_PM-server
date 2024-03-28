@@ -6,6 +6,8 @@ import proveedorRouter from "../routes/proveedor_route";
 import areaRouter from "../routes/area_route";
 import colors from "colors";
 import cors, { CorsOptions } from "cors";
+import swaggerUi from 'swagger-ui-express'
+import swaggerSpec from "../config/swagger";
 import db from "../config/db";
 
 //Conectar a base de datos
@@ -13,9 +15,9 @@ async function connectDB() {
     try {
         await db.authenticate()
         db.sync()
-        console.log(colors.blue("Conexion exitosa a la base de datos"))
+        //console.log(colors.blue("Conexion exitosa a la base de datos"))
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         console.log(colors.red("Hubo un error al conectar a la base de datos"))
     }
 }
@@ -35,16 +37,20 @@ const corsOptions: CorsOptions = {
         }
     }
 }
-server.use(cors(corsOptions))
+//server.use(cors(corsOptions))
 
 //Leer datos de formularios
 server.use(express.json());
 
+
+//Routes API
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
 server.use("/api/categoria_material", categoria_materialRouter);
 server.use('/api/proveedor', proveedorRouter);
 server.use('/api/area', areaRouter);
 
+//DOCS
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 export default server;

@@ -9,7 +9,7 @@ const router = Router();
 router.get('/', getArea);
 
 router.get('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     getAreabyId
 );
@@ -23,14 +23,14 @@ router.post(
 )
 
 router.put('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     body('nombre').notEmpty().withMessage("El nombre de proveedor no puede ser vacia"),
     handleInputErrors,
     updateArea
 );
 
 router.delete('/:id',
-    param('id').isInt().withMessage("ID no  valido"),
+    param('id').isInt().withMessage("ID no valido"),
     handleInputErrors,
     deleteArea
 )

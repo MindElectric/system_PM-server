@@ -14,7 +14,7 @@ class Marca extends Model {
     @Column({
         type: DataType.STRING(50)
     })
-    nombre: string;
+    declare nombre: string;
 
     @HasMany(() => Material)
     materials: Material[];

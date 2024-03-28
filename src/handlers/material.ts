@@ -73,7 +73,7 @@ export const getMaterialById = async (req: Request, res: Response) => {
 export const createMaterial = async (req: Request, res: Response) => {
     try {
         const material = Material.create(req.body);
-        res.json({ data: material });
+        res.status(201).json({ data: material });
     } catch (error) {
         console.log(error);
     }
