@@ -106,7 +106,7 @@ describe('PUT /api/marca/:id', () => {
 
     })
 
-    it("should update an existing product with validator", async () => {
+    it("should update an existing marca with validator", async () => {
         const response = await request(server).put(`/api/marca/5`).send({
             nombre: "Updated"
         })

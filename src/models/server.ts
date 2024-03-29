@@ -4,6 +4,7 @@ import materialRouter from "../routes/material_route";
 import categoria_materialRouter from "../routes/categoria_material_route";
 import proveedorRouter from "../routes/proveedor_route";
 import areaRouter from "../routes/area_route";
+import material_proveedorRouter from "../routes/material_proveedor_route"
 import colors from "colors";
 import cors, { CorsOptions } from "cors";
 import swaggerUi from 'swagger-ui-express'
@@ -49,6 +50,7 @@ server.use("/api/material", materialRouter);
 server.use("/api/categoria_material", categoria_materialRouter);
 server.use('/api/proveedor', proveedorRouter);
 server.use('/api/area', areaRouter);
+server.use('/api/material_proveedor', material_proveedorRouter)
 
 //DOCS
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))

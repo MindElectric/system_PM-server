@@ -15,7 +15,7 @@ class CategoriaMaterial extends Model {
         type: DataType.STRING(50),
         allowNull: false
     })
-    nombre: string;
+    declare nombre: string;
 
     @HasMany(() => Material)
     materials: Material[];

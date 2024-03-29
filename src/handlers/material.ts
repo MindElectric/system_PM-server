@@ -4,7 +4,6 @@ import Marca from "../model/Marca.model"
 import Area from "../model/Area.model"
 import CategoriaMaterial from "../model/Categoria_Material.model"
 import Proveedor from "../model/Proveedor.model"
-import MaterialProveedor from "../model/Material_Proveedor.model"
 
 export const getMaterial = async (req: Request, res: Response) => {
     try {
@@ -72,7 +71,7 @@ export const getMaterialById = async (req: Request, res: Response) => {
 //TODO: Posiblemente cambiar esto
 export const createMaterial = async (req: Request, res: Response) => {
     try {
-        const material = Material.create(req.body);
+        const material = await Material.create(req.body);
         res.status(201).json({ data: material });
     } catch (error) {
         console.log(error);

@@ -10,7 +10,7 @@ class MaterialProveedor extends Model {
     @PrimaryKey
     @ForeignKey(() => Proveedor)
     @Column
-    id_proveedor: number;
+    declare id_proveedor: number;
 
     @BelongsTo(() => Proveedor)
     proveedor: Proveedor;
@@ -18,7 +18,7 @@ class MaterialProveedor extends Model {
     @PrimaryKey
     @ForeignKey(() => Material)
     @Column
-    id_material: number;
+    declare id_material: number;
 
     @BelongsTo(() => Material)
     material: Material;

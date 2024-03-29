@@ -24,7 +24,7 @@ export const getById = async (model: any, req: Request, res: Response) => {
 
         if (!entity) {
             return res.status(404).json({
-                error: 'Marca no encontrado'
+                error: 'Entidad no encontrado'
             })
         }
         res.json({ data: entity });
@@ -36,7 +36,7 @@ export const getById = async (model: any, req: Request, res: Response) => {
 
 export const createEntity = async (model: any, req: Request, res: Response) => {
     try {
-        const entity = model.create(req.body);
+        const entity = await model.create(req.body);
         res.status(201).json({ data: entity });
     } catch (error) {
         console.log(error);

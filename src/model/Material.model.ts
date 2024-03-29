@@ -20,55 +20,55 @@ class Material extends Model {
         type: DataType.STRING(150),
         allowNull: false
     })
-    descripcion: string;
+    declare descripcion: string;
 
     @Column({
         type: DataType.INTEGER,
         allowNull: false
     })
-    cantidad: number;
+    declare cantidad: number;
 
     @Column({
         type: DataType.STRING(30),
         allowNull: false
     })
-    codigo: string;
+    declare codigo: string;
 
     @Column({
         type: DataType.DECIMAL,
         allowNull: false
     })
-    costo: number;
+    declare costo: number;
 
     @Column({
         type: DataType.INTEGER,
         allowNull: false
     })
-    minimo: number;
+    declare minimo: number;
 
     @Column({
         type: DataType.INTEGER,
         allowNull: false
     })
-    maximo: number;
+    declare maximo: number;
 
     @ForeignKey(() => Marca)
     @Column
-    id_marca: number;
+    declare id_marca: number;
 
     @BelongsTo(() => Marca)
-    marca: Marca;
+    declare marca: Marca;
 
     @ForeignKey(() => Area)
     @Column
-    id_area: number;
+    declare id_area: number;
 
     @BelongsTo(() => Area)
     area: Area;
 
     @ForeignKey(() => CategoriaMaterial)
     @Column
-    id_categoria_material: number;
+    declare id_categoria_material: number;
 
     @BelongsTo(() => CategoriaMaterial)
     categoriaMaterial: CategoriaMaterial;

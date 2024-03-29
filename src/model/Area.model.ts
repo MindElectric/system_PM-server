@@ -16,7 +16,7 @@ class Area extends Model {
         type: DataType.STRING(20),
         allowNull: false
     })
-    nombre: string;
+    declare nombre: string;
 
     @HasMany(() => Material)
     materials: Material[];

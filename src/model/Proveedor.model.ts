@@ -16,19 +16,19 @@ class Proveedor extends Model {
         type: DataType.STRING(40),
         allowNull: false
     })
-    nombre: string;
+    declare nombre: string;
 
     @Column({
         type: DataType.STRING(15),
         allowNull: false
     })
-    telefono: string;
+    declare telefono: string;
 
     @Column({
         type: DataType.STRING(50),
         allowNull: false
     })
-    contacto: string;
+    declare contacto: string;
 
     @BelongsToMany(() => Material, () => MaterialProveedor)
     materials: Material[];
