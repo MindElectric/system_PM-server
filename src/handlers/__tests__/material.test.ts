@@ -161,7 +161,7 @@ describe("DELETE /api/material/:id", () => {
     })
 
     it('should delete a product', async () => {
-        const response = await request(server).delete('/api/material/28')
+        const response = await request(server).delete('/api/material/30')
         expect(response.status).toBe(200)
         expect(response.body.data).toBe("Material Eliminado")
 

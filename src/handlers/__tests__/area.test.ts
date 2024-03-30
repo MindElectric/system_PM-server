@@ -140,7 +140,7 @@ describe("DELETE /api/area/:id", () => {
     })
 
     it('should delete a product', async () => {
-        const response = await request(server).delete('/api/area/2')
+        const response = await request(server).delete('/api/area/4')
         expect(response.status).toBe(200)
         expect(response.body.data).toBe("Entidad Eliminado")
 

@@ -49,7 +49,7 @@ describe("GET /api/marca/:id", () => {
         const response = await request(server).get(`/api/marca/${marcaId}`)
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("error")
-        expect(response.body.error).toBe("Marca no encontrado")
+        expect(response.body.error).toBe("Entidad no encontrado")
     })
 
     it('should check a valid Id in the url', async () => {
@@ -140,7 +140,7 @@ describe("DELETE /api/marca/:id", () => {
     })
 
     it('should delete a product', async () => {
-        const response = await request(server).delete('/api/marca/8')
+        const response = await request(server).delete('/api/marca/11')
         expect(response.status).toBe(200)
         expect(response.body.data).toBe("Entidad Eliminado")
 

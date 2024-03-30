@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.58% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -86,49 +86,49 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Request, Response } from "express";
 import CategoriaMaterial from "../model/Categoria_Material.model";
 import { createEntity, deleteEntity, getAll, getById, updateEntity } from "./rest_functions";
 &nbsp;
-export const getCategoriaMaterial = <span class="fstat-no" title="function not covered" >async </span>(req: Request, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    getAll(CategoriaMaterial, req, res);</span>
+export const getCategoriaMaterial = async (req: Request, res: Response) =&gt; {
+    getAll(CategoriaMaterial, req, res);
 }
 &nbsp;
-export const getCategoriaMaterialbyId = <span class="fstat-no" title="function not covered" >async </span>(req: Request, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    getById(CategoriaMaterial, req, res);</span>
+export const getCategoriaMaterialbyId = async (req: Request, res: Response) =&gt; {
+    getById(CategoriaMaterial, req, res);
 }
 &nbsp;
-export const createCategoria_Material = <span class="fstat-no" title="function not covered" >async </span>(req: Request, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    createEntity(CategoriaMaterial, req, res);</span>
+export const createCategoria_Material = async (req: Request, res: Response) =&gt; {
+    createEntity(CategoriaMaterial, req, res);
 }
 &nbsp;
-export const updateCategoriaMaterial = <span class="fstat-no" title="function not covered" >async </span>(req: Request, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    updateEntity(CategoriaMaterial, req, res);</span>
+export const updateCategoriaMaterial = async (req: Request, res: Response) =&gt; {
+    updateEntity(CategoriaMaterial, req, res);
 }
 &nbsp;
-export const deleteCategoriaMaterial = <span class="fstat-no" title="function not covered" >async </span>(req: Request, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    deleteEntity(CategoriaMaterial, req, res);</span>
+export const deleteCategoriaMaterial = async (req: Request, res: Response) =&gt; {
+    deleteEntity(CategoriaMaterial, req, res);
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -136,7 +136,7 @@ export const deleteCategoriaMaterial = <span class="fstat-no" title="function no
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-28T19:54:09.658Z
+                at 2024-03-30T17:11:50.534Z
             </div>
         <script src="../prettify.js"></script>
         <script>
