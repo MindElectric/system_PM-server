@@ -1,7 +1,19 @@
 import { Request, Response } from "express";
 
+interface properties {
+    next?: object,
+    previous?: object,
+    data?: any[]
+}
+
 export const getAll = async (model: any, req: Request, res: Response) => {
     try {
+        //Pagination
+        const page: number = Number(req.query.page)
+        const limit: number = Number(req.query.limit)
+
+        const startIndex = (page - 1) * limit
+        const endIndex = page * limit
         const entity = await model.findAll()
 
         if (!entity) {
@@ -9,7 +21,28 @@ export const getAll = async (model: any, req: Request, res: Response) => {
                 error: 'Entidad no encontrado'
             })
         }
-        res.json({ data: entity });
+
+        const results: properties = {}
+
+        // No mostrar si no hay mas articulos por mostrar
+        if (endIndex < entity.length) {
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+
+        //No mostrar si esta en la pagina 1
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+
+
+        results.data = entity.slice(startIndex, endIndex)
+        res.json(results);
     } catch (error) {
         console.log(error);
     }

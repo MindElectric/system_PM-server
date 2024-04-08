@@ -1,15 +1,54 @@
 import { Request, Response } from "express"
+import { Op } from "sequelize"
 import Material from "../model/Material.model"
 import Marca from "../model/Marca.model"
 import Area from "../model/Area.model"
 import CategoriaMaterial from "../model/Categoria_Material.model"
 import Proveedor from "../model/Proveedor.model"
+import { Sequelize } from "sequelize-typescript"
+
+interface properties {
+    next?: object,
+    previous?: object,
+    data?: any[]
+}
 
 export const getMaterial = async (req: Request, res: Response) => {
     try {
+        //Paginacion
+        const page: number = Number(req.query.page);
+        const limit: number = Number(req.query.limit);
+
+        const search: string = req.query.search?.toString() || "";
+        const category: string = req.query.category?.toString() || "All";
+
+        const startIndex = (page - 1) * limit
+        const endIndex = page * limit
+
+        let whereClause = {};
+
+        //Busqueda para que sea case-insensitive
+        if (search) {
+            whereClause = {
+                ...whereClause,
+                [Op.and]: [
+                    Sequelize.where(
+                        Sequelize.fn('lower', Sequelize.col('codigo')),
+                        { [Op.like]: `%${search.toLowerCase()}%` }
+                    )
+                ]
+            };
+        }
+        if (category !== 'All') {
+            whereClause['id_categoria_material'] = category;
+        }
+
+
+
         // Consulta para obtener todos los datos de material
         const material = await Material.findAll(
             {
+                where: whereClause,
                 include: [
                     { model: Marca, as: 'marca' },
                     { model: Area, as: 'area' },
@@ -29,7 +68,29 @@ export const getMaterial = async (req: Request, res: Response) => {
                 error: 'Material no encontrado'
             })
         }
-        res.json({ data: material });
+
+        const results: properties = {}
+
+        // No mostrar si no hay mas articulos por mostrar
+        if (endIndex < material.length) {
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+
+        //No mostrar si esta en la pagina 1
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+
+
+        results.data = material.slice(startIndex, endIndex)
+        res.json(
+            results);
 
     } catch (error) {
         console.log(error);
