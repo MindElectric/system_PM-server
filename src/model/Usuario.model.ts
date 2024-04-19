@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from "sequelize-typescript";
 import Area from "./Area.model";
+import Rol from "./Rol.model";
 
 @Table({
     tableName: 'usuario',
@@ -12,29 +13,30 @@ class Usuario extends Model {
     declare id: number;
 
     @Column({
-        type: DataType.STRING(15),
-        allowNull: false
-    })
-    rol: string;
-
-    @Column({
         type: DataType.STRING(30),
         allowNull: false
     })
-    username: string;
+    declare username: string;
 
     @Column({
         type: DataType.TEXT,
         allowNull: false
     })
-    password: string;
+    declare password: string;
 
     @ForeignKey(() => Area)
     @Column
-    id_area: number;
+    declare id_area: number;
 
     @BelongsTo(() => Area)
     area: Area;
+
+    @ForeignKey(() => Rol)
+    @Column
+    declare id_rol: number;
+
+    @BelongsTo(() => Rol)
+    rol: Rol;
 }
 
 export default Usuario;

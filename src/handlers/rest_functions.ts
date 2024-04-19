@@ -7,6 +7,20 @@ interface properties {
 }
 
 export const getAll = async (model: any, req: Request, res: Response) => {
+    const entity = await model.findAll()
+
+    if (!entity) {
+        return res.status(404).json({
+            error: 'Entidad no encontrado'
+        })
+    }
+
+    const data = entity
+    res.json({ data: data });
+}
+
+
+export const getAllPaginate = async (model: any, req: Request, res: Response) => {
     try {
         //Pagination
         const page: number = Number(req.query.page)

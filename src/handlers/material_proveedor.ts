@@ -54,6 +54,33 @@ export const getMaterialProveedorById = async (req: Request, res: Response) => {
     res.json({ data: materialProveedores });
 }
 
+export const getMaterialProveedorByMaterialId = async (req: Request, res: Response) => {
+    const { id_material } = req.params;
+
+    const materialProveedores = await MaterialProveedor.findAll({
+        where: {
+            id_material: id_material
+        },
+        // include: [
+        //     {
+        //         model: Material,
+        //         as: 'material'
+        //     },
+        //     {
+        //         model: Proveedor,
+        //         as: 'proveedor'
+        //     }
+        // ]
+    });
+
+    if (!materialProveedores) {
+        return res.status(404).json({
+            error: 'Material no encontrado'
+        })
+    }
+    res.json({ data: materialProveedores });
+}
+
 export const createMaterialProveedor = (req: Request, res: Response) => {
     createEntity(MaterialProveedor, req, res)
 }
@@ -81,23 +108,23 @@ export const updateMaterialProveedor = async (req: Request, res: Response) => {
     res.status(201).json({ data: actualizadoMaterialProveedores });
 }
 
-// export const deleteMaterialProveedor = async (req: Request, res: Response) => {
-//     const { id_proveedor, id_material } = req.params;
-//     const materialProveedores = await MaterialProveedor.findOne({
-//         where: {
-//             id_proveedor: id_proveedor,
-//             id_material: id_material
-//         },
-//     })
+export const deleteMaterialProveedor = async (req: Request, res: Response) => {
+    const { id_proveedor, id_material } = req.params;
+    const materialProveedores = await MaterialProveedor.findOne({
+        where: {
+            id_proveedor: id_proveedor,
+            id_material: id_material
+        },
+    })
 
-//     if (!materialProveedores) {
-//         return res.status(404).json({
-//             error: 'Material no encontrado'
-//         })
-//     }
+    if (!materialProveedores) {
+        return res.status(404).json({
+            error: 'Material no encontrado'
+        })
+    }
 
-//     await materialProveedores.destroy()
-//     res.json({ data: "Entidad Eliminado" })
+    await materialProveedores.destroy()
+    res.json({ data: "Entidad Eliminado" })
 
 
-// }
+}

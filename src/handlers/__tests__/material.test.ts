@@ -2,7 +2,7 @@ import request from "supertest";
 
 import server from "../../models/server";
 
-describe("GET /api/material", () => {
+describe.only("GET /api/material", () => {
     it("should check if api/material url exists", async () => {
         const response = await request(server).get('/api/material')
         expect(response.status).not.toBe(404)
@@ -16,6 +16,83 @@ describe("GET /api/material", () => {
         expect(response.body).toHaveProperty("data")
         expect(response.body).not.toHaveProperty("errors")
 
+    })
+
+    it('should GET a paginated JSON response with materials with length of 3 on page 1', async () => {
+        const response = await request(server).get('/api/material?page=1&limit=3');
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body).toHaveProperty("next")
+        expect(response.body.data).toHaveLength(3)
+
+        expect(response.body).not.toHaveProperty("errors")
+        expect(response.body).not.toHaveProperty("previous")
+    })
+
+    it('should GET a search for a singular material by code', async () => {
+        const code = "PIJ-1050"
+        const response = await request(server).get(`/api/material?page=1&limit=3&search=${code}`);
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toHaveLength(1)
+        expect(response.body.data[0]).toHaveProperty("codigo", code)
+
+        expect(response.body).not.toHaveProperty("next")
+        expect(response.body).not.toHaveProperty("previous")
+    })
+
+    it('should GET nothing if material code does not exist', async () => {
+        const code = "dfosfdsono"
+        const response = await request(server).get(`/api/material?page=1&limit=3&search=${code}`);
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toHaveLength(0)
+
+        expect(response.body).not.toHaveProperty("next")
+        expect(response.body).not.toHaveProperty("previous")
+    })
+
+    it('should GET a category from material with length of 10', async () => {
+        const categoryId = 1
+        const response = await request(server).get(`/api/material?page=1&limit=10&category=${categoryId}`);
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toHaveLength(10)
+        expect(response.body).toHaveProperty("next")
+        expect(response.body.data[0]).toHaveProperty("id_categoria_material", categoryId)
+
+        expect(response.body).not.toHaveProperty("previous")
+    })
+
+    it('should receive nothing if category is empty', async () => {
+        const categoryId = 3
+        const response = await request(server).get(`/api/material?page=1&limit=10&category=${categoryId}`);
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toHaveLength(0)
+
+        expect(response.body).not.toHaveProperty("next")
+        expect(response.body).not.toHaveProperty("previous")
+    })
+
+    it('should GET a search for a singular material by code and category', async () => {
+        const code = "PIJ-1050"
+        const categoryId = 1
+        const response = await request(server).get(`/api/material?page=1&limit=3&search=${code}&category=1`);
+        expect(response.status).toBe(200)
+        expect(response.headers['content-type']).toMatch(/json/)
+        expect(response.body).toHaveProperty("data")
+        expect(response.body.data).toHaveLength(1)
+        expect(response.body.data[0]).toHaveProperty("codigo", code)
+        expect(response.body.data[0]).toHaveProperty("id_categoria_material", categoryId)
+
+        expect(response.body).not.toHaveProperty("next")
+        expect(response.body).not.toHaveProperty("previous")
     })
 })
 

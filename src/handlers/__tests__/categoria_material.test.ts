@@ -2,7 +2,7 @@ import request from "supertest";
 
 import server from "../../models/server";
 
-describe("GET /api/categoria_material", () => {
+describe.only("GET /api/categoria_material", () => {
     it("should check if api/categoria_material url exists", async () => {
         const response = await request(server).get('/api/categoria_material')
         expect(response.status).not.toBe(404)

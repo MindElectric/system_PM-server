@@ -3,7 +3,7 @@ import CategoriaMaterial from "../model/Categoria_Material.model";
 import { createEntity, deleteEntity, getAll, getById, updateEntity } from "./rest_functions";
 
 export const getCategoriaMaterial = async (req: Request, res: Response) => {
-    getAll(CategoriaMaterial, req, res);
+    getAll(CategoriaMaterial, req, res)
 }
 
 export const getCategoriaMaterialbyId = async (req: Request, res: Response) => {

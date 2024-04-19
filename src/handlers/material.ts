@@ -89,6 +89,7 @@ export const getMaterial = async (req: Request, res: Response) => {
 
 
         results.data = material.slice(startIndex, endIndex)
+        res.set('x-total-count', material.length.toString())
         res.json(
             results);
 
@@ -154,6 +155,29 @@ export const updateMaterial = async (req: Request, res: Response) => {
 
         // Actualizar
         await material.update(req.body);
+        await material.save();
+
+        res.json({ data: material });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updateCantidad = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        //Revisar si el material existe
+        const material = await Material.findByPk(id);
+
+        if (!material) {
+            return res.status(404).json({
+                error: 'Material no encontrado'
+            })
+        }
+
+
+        // Actualizar
+        material.cantidad = req.body.cantidad
         await material.save();
 
         res.json({ data: material });

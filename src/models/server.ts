@@ -4,10 +4,13 @@ import materialRouter from "../routes/material_route";
 import categoria_materialRouter from "../routes/categoria_material_route";
 import proveedorRouter from "../routes/proveedor_route";
 import areaRouter from "../routes/area_route";
-import material_proveedorRouter from "../routes/material_proveedor_route"
+import material_proveedorRouter from "../routes/material_proveedor_route";
+import usuarioRouter from "../routes/user_route";
+import loginRouter from "../routes/login"
 import colors from "colors";
+import morgan from "morgan";
 import cors, { CorsOptions } from "cors";
-import swaggerUi from 'swagger-ui-express'
+import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from "../config/swagger";
 import db from "../config/db";
 
@@ -28,6 +31,7 @@ const server = express()
 
 // Permitir conexiones
 const corsOptions: CorsOptions = {
+    exposedHeaders: ['x-total-count'],
     origin: function (origin, callback) {
         if (origin === process.env.FRONTEND_URL) {
             // Permitir conexion origen
@@ -44,6 +48,8 @@ const corsOptions: CorsOptions = {
 server.use(express.json());
 
 
+server.use(morgan("dev"))
+
 //Routes API
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
@@ -51,6 +57,8 @@ server.use("/api/categoria_material", categoria_materialRouter);
 server.use('/api/proveedor', proveedorRouter);
 server.use('/api/area', areaRouter);
 server.use('/api/material_proveedor', material_proveedorRouter)
+server.use("/api/usuario", usuarioRouter)
+server.use("/api/login", loginRouter)
 
 //DOCS
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))

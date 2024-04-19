@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware";
-import { createMaterialProveedor, getMaterialProveedor, getMaterialProveedorById, updateMaterialProveedor } from "../handlers/material_proveedor";
+import { createMaterialProveedor, deleteMaterialProveedor, getMaterialProveedor, getMaterialProveedorById, getMaterialProveedorByMaterialId, updateMaterialProveedor } from "../handlers/material_proveedor";
 
 const router = Router();
 
@@ -13,6 +13,13 @@ router.get('/:id_proveedor/:id_material',
     param('id_material').isInt().withMessage("ID no valido"),
     handleInputErrors,
     getMaterialProveedorById
+)
+
+router.get("/:id_material",
+    param('id_material').isInt().withMessage("ID no valido"),
+    handleInputErrors,
+    getMaterialProveedorByMaterialId
+
 )
 
 router.post('/',
@@ -31,11 +38,13 @@ router.put('/:id_proveedor/:id_material',
     updateMaterialProveedor
 )
 
-// router.delete('/:id_proveedor/:id_material',
-//     param('id_proveedor').isInt().withMessage("ID no valido"),
-//     param('id_material').isInt().withMessage("ID no valido"),
-//     handleInputErrors,
-//     deleteMaterialProveedor
-// )
+router.delete('/:id_proveedor/:id_material',
+    param('id_proveedor').isInt().withMessage("ID no valido"),
+    param('id_material').isInt().withMessage("ID no valido"),
+    // body('id_proveedor').isInt().withMessage("ID no valido"),
+    // body('id_material').isInt().withMessage("ID no valido"),
+    handleInputErrors,
+    deleteMaterialProveedor
+)
 
 export default router;
