@@ -3,7 +3,11 @@ import Usuario from "../model/Usuario.model";
 import Area from "../model/Area.model";
 import Rol from "../model/Rol.model";
 
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken"
+import path from "path" //Maybe not use this one
+
+require('dotenv').config();
 
 
 export const getUsuario = async (req: Request, res: Response) => {
@@ -45,7 +49,28 @@ export const userLogin = async (req: Request, res: Response) => {
 
     if (match) {
         //TODO: Crear jwt aqui
-        res.json({ data: user })
+        const accessToken = jwt.sign(
+            { "username": user.username },
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+                expiresIn: '60m'
+            }
+        );
+        const refreshToken = jwt.sign(
+            { "username": user.username },
+            process.env.REFRESH_TOKEN_SECRET,
+            {
+                expiresIn: '1d'
+            }
+        );
+
+        // Save refresh token to user
+        user.refresh_token = refreshToken
+        await user.save();
+
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }) //1 day
+        res.json({ accessToken })
+
     } else {
         res.sendStatus(401); // No autorizado
     }

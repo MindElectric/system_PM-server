@@ -24,6 +24,11 @@ class Usuario extends Model {
     })
     declare password: string;
 
+    @Column({
+        type: DataType.TEXT
+    })
+    declare refresh_token: string;
+
     @ForeignKey(() => Area)
     @Column
     declare id_area: number;
