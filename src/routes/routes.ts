@@ -6,3 +6,5 @@ export { default as areaRouter } from "../routes/area_route";
 export { default as material_proveedorRouter } from "../routes/material_proveedor_route";
 export { default as usuarioRouter } from "../routes/user_route";
 export { default as loginRouter } from "../routes/login";
+export { default as refreshRouter } from "../routes/refresh_route"
+export { default as logoutRouter } from "../routes/logout"

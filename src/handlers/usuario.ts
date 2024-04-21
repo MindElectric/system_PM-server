@@ -5,8 +5,6 @@ import Rol from "../model/Rol.model";
 
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
-import path from "path" //Maybe not use this one
-
 require('dotenv').config();
 
 
@@ -23,7 +21,6 @@ export const getUsuario = async (req: Request, res: Response) => {
             error: 'Usuario no encontrado'
         })
     }
-
     const data = user
     res.json({ data: data });
 }
@@ -36,7 +33,11 @@ export const userLogin = async (req: Request, res: Response) => {
     const user = await Usuario.findOne({
         where: {
             username
-        }
+        },
+        include: [
+            { model: Area, as: 'area' },
+            { model: Rol, as: 'rol' },
+        ]
     });
 
     if (!user) {
@@ -48,12 +49,20 @@ export const userLogin = async (req: Request, res: Response) => {
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
-        //TODO: Crear jwt aqui
+        const rol = user.id_rol
+        console.log(rol)
+
+        //Crear jwt
         const accessToken = jwt.sign(
-            { "username": user.username },
+            {
+                "userinfo": {
+                    "username": user.username,
+                    "rol": rol
+                }
+            },
             process.env.ACCESS_TOKEN_SECRET,
             {
-                expiresIn: '60m'
+                expiresIn: '900s'
             }
         );
         const refreshToken = jwt.sign(
@@ -68,7 +77,7 @@ export const userLogin = async (req: Request, res: Response) => {
         user.refresh_token = refreshToken
         await user.save();
 
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }) //1 day
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 }) //1 day
         res.json({ accessToken })
 
     } else {

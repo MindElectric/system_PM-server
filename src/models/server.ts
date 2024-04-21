@@ -7,14 +7,18 @@ import {
     areaRouter,
     material_proveedorRouter,
     usuarioRouter,
-    loginRouter
+    loginRouter,
+    refreshRouter,
+    logoutRouter
 } from '../routes/routes';
 import colors from "colors";
 import morgan from "morgan";
+import { allowedOrigins } from "../config/allowedOrigins";
 import cors, { CorsOptions } from "cors";
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from "../config/swagger";
 import db from "../config/db";
+import { credentials } from "../middleware/credentials";
 import { verifyJWT } from "../middleware/verifyJWT";
 import cookieParser from "cookie-parser";
 
@@ -37,7 +41,7 @@ const server = express()
 const corsOptions: CorsOptions = {
     exposedHeaders: ['x-total-count'],
     origin: function (origin, callback) {
-        if (origin === process.env.FRONTEND_URL) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
             // Permitir conexion origen
             callback(null, true)
         } else {
@@ -46,22 +50,27 @@ const corsOptions: CorsOptions = {
         }
     }
 }
-//server.use(cors(corsOptions))
+
+//server.use(credentials)
+
+server.use(cors(corsOptions))
 
 //Leer datos de formularios
 server.use(express.json());
 
 
 // Middleware for cookies
-server.use(cookieParser());
+//server.use(cookieParser());
 
 server.use(morgan("dev"))
 
 //Routes API
-server.use("/api/usuario", usuarioRouter)
-server.use("/api/login", loginRouter)
+server.use("/api/usuario", usuarioRouter);
+server.use("/api/login", loginRouter);
+server.use("/api/refresh", refreshRouter);
+server.use("/api/logout", logoutRouter);
 
-server.use(verifyJWT);
+//server.use(verifyJWT);
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
 server.use("/api/categoria_material", categoria_materialRouter);
