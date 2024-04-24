@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 require('dotenv').config();
 
-// Extend the Request interface to include 'usuario' property
+
 declare global {
     namespace Express {
         interface Request {

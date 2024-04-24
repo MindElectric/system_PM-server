@@ -51,7 +51,7 @@ const corsOptions: CorsOptions = {
     }
 }
 
-//server.use(credentials)
+server.use(credentials)
 
 server.use(cors(corsOptions))
 
@@ -60,17 +60,17 @@ server.use(express.json());
 
 
 // Middleware for cookies
-//server.use(cookieParser());
+server.use(cookieParser());
 
 server.use(morgan("dev"))
 
 //Routes API
 server.use("/api/usuario", usuarioRouter);
-server.use("/api/login", loginRouter);
+server.use("/login", loginRouter);
 server.use("/api/refresh", refreshRouter);
-server.use("/api/logout", logoutRouter);
+server.use("/logout", logoutRouter);
 
-//server.use(verifyJWT);
+server.use(verifyJWT);
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
 server.use("/api/categoria_material", categoria_materialRouter);
