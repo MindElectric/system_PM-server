@@ -1,14 +1,14 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, BelongsToMany } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, BelongsToMany, HasMany } from "sequelize-typescript";
 import Marca from "./Marca.model";
 import Area from "./Area.model";
 import CategoriaMaterial from "./Categoria_Material.model";
 import Proveedor from "./Proveedor.model";
 import MaterialProveedor from "./Material_Proveedor.model";
+import Notification from "./Notifications.model";
 
 
 @Table({
     tableName: 'material',
-    timestamps: false
 })
 class Material extends Model {
     @PrimaryKey
@@ -52,6 +52,12 @@ class Material extends Model {
     })
     declare maximo: number;
 
+    @Column({
+        type: DataType.STRING(30),
+        allowNull: false
+    })
+    declare modelo: string;
+
     @ForeignKey(() => Marca)
     @Column
     declare id_marca: number;
@@ -75,6 +81,23 @@ class Material extends Model {
 
     @BelongsToMany(() => Proveedor, () => MaterialProveedor)
     proveedores: Proveedor[];
+
+    @Column({
+        type: DataType.DATE,
+        allowNull: false,
+        field: 'createdat'
+    })
+    declare createdAt: Date;
+
+    @Column({
+        type: DataType.DATE,
+        allowNull: true,
+        field: 'updatedat'
+    })
+    declare updatedAt: Date;
+
+    @HasMany(() => Notification)
+    notifications: Notification[];
 }
 
 export default Material;

@@ -13,9 +13,11 @@ router.get("/", getUsuario)
 
 router.post("/",
     //Solo administradores
-    verifyRol(ROLES_LIST.Admin),
+    //verifyRol(ROLES_LIST.Admin),
     body('username').notEmpty().withMessage("El nombre de usuario no puede ser vacia"),
     body('password').notEmpty().withMessage("La contraseña no puede ser vacia"),
+    body('id_area').isInt().withMessage("La contraseña no puede ser vacia"),
+    body('id_rol').isInt().withMessage("La contraseña no puede ser vacia"),
     handleInputErrors,
     createNewUsuario)
 

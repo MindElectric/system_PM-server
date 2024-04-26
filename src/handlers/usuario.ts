@@ -108,6 +108,6 @@ export const createNewUsuario = async (req: Request, res: Response) => {
         const newUser = await Usuario.create(userObj)
         res.status(201).json({ data: newUser })
     } catch (error) {
-
+        console.log(error)
     }
 }

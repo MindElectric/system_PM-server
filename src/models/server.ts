@@ -9,7 +9,8 @@ import {
     usuarioRouter,
     loginRouter,
     refreshRouter,
-    logoutRouter
+    logoutRouter,
+    notificationRouter
 } from '../routes/routes';
 import colors from "colors";
 import morgan from "morgan";
@@ -21,6 +22,7 @@ import db from "../config/db";
 import { credentials } from "../middleware/credentials";
 import { verifyJWT } from "../middleware/verifyJWT";
 import cookieParser from "cookie-parser";
+import { deleteNotificationJob } from "../scheduled-tasks/deleteNotification";
 
 //Conectar a base de datos
 async function connectDB() {
@@ -51,6 +53,10 @@ const corsOptions: CorsOptions = {
     }
 }
 
+
+// Scheduled tasks
+//deleteNotificationJob();
+
 server.use(credentials)
 
 server.use(cors(corsOptions))
@@ -69,7 +75,9 @@ server.use("/api/usuario", usuarioRouter);
 server.use("/login", loginRouter);
 server.use("/api/refresh", refreshRouter);
 server.use("/logout", logoutRouter);
+server.use('/api/notifications', notificationRouter)
 
+//Check if user has token to view these routes
 server.use(verifyJWT);
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);

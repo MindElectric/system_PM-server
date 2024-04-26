@@ -1,6 +1,7 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from "sequelize-typescript";
 import Area from "./Area.model";
 import Rol from "./Rol.model";
+import Notification from "./Notifications.model";
 
 @Table({
     tableName: 'usuario',
@@ -42,6 +43,9 @@ class Usuario extends Model {
 
     @BelongsTo(() => Rol)
     rol: Rol;
+
+    @HasMany(() => Notification)
+    notifications: Notification[];
 }
 
 export default Usuario;
