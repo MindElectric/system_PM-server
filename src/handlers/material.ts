@@ -22,6 +22,12 @@ export const getMaterial = async (req: Request, res: Response) => {
         const search: string = req.query.search?.toString() || "";
         const category: string = req.query.category?.toString() || "All";
 
+        const max: boolean = req.query.max ? req.query.max === 'true' : false;
+        const min: boolean = req.query.min ? req.query.min === 'true' : false;
+
+
+
+
         const startIndex = (page - 1) * limit
         const endIndex = page * limit
 
@@ -38,9 +44,21 @@ export const getMaterial = async (req: Request, res: Response) => {
                     )
                 ]
             };
-        }
+        };
+
+        // Filtrar por categorias
         if (category !== 'All') {
             whereClause['id_categoria_material'] = category;
+        }
+
+        // Filter maximo
+        if (max) {
+            whereClause['cantidad'] = { [Op.gt]: Sequelize.col('maximo') };
+        }
+
+        // Filter minimo
+        if (min) {
+            whereClause['cantidad'] = { [Op.lt]: Sequelize.col('minimo') };
         }
 
 

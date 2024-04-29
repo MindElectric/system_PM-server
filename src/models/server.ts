@@ -55,7 +55,7 @@ const corsOptions: CorsOptions = {
 
 
 // Scheduled tasks
-deleteNotificationJob();
+//deleteNotificationJob();
 
 server.use(credentials)
 
@@ -66,7 +66,7 @@ server.use(express.json());
 
 
 // Middleware for cookies
-server.use(cookieParser());
+//server.use(cookieParser());
 
 server.use(morgan("dev"))
 
@@ -78,7 +78,7 @@ server.use("/logout", logoutRouter);
 server.use('/api/notifications', notificationRouter)
 
 //Check if user has token to view these routes
-server.use(verifyJWT);
+//server.use(verifyJWT);
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
 server.use("/api/categoria_material", categoria_materialRouter);
