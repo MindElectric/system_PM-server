@@ -23,7 +23,7 @@ class Material extends Model {
     declare descripcion: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.DECIMAL,
         allowNull: false
     })
     declare cantidad: number;

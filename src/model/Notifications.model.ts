@@ -19,6 +19,18 @@ class Notification extends Model {
     })
     declare type: string;
 
+    @Column({
+        type: DataType.STRING(30),
+        allowNull: false
+    })
+    declare codigo: string;
+
+    @Column({
+        type: DataType.DECIMAL,
+        allowNull: false
+    })
+    declare cantidad: number;
+
     @ForeignKey(() => Usuario)
     @Column
     declare user_id: number;

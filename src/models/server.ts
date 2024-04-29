@@ -55,7 +55,7 @@ const corsOptions: CorsOptions = {
 
 
 // Scheduled tasks
-//deleteNotificationJob();
+deleteNotificationJob();
 
 server.use(credentials)
 

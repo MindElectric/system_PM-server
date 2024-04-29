@@ -50,11 +50,13 @@ export const userLogin = async (req: Request, res: Response) => {
 
     if (match) {
         const rol = user.id_rol
+        const userId = user.id;
 
         //Crear jwt
         const accessToken = jwt.sign(
             {
                 "userinfo": {
+                    "user_id": userId,
                     "username": user.username,
                     "rol": rol
                 }
@@ -78,7 +80,7 @@ export const userLogin = async (req: Request, res: Response) => {
 
         res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 }) //1 day
         //Return the neccesary values
-        res.json({ username, rol, accessToken })
+        res.json({ userId, username, rol, accessToken })
 
     } else {
         res.sendStatus(401); // No autorizado

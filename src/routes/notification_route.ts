@@ -12,6 +12,8 @@ router.post('/',
     body('material_id').isInt().withMessage("Material id no valido"),
     body('user_id').isInt().withMessage("User id no valido"),
     body("type").notEmpty().withMessage("type no puede ser vacia"),
+    body("codigo").notEmpty().withMessage("codigo no puede ser vacia"),
+    body("cantidad").isFloat().notEmpty().withMessage("cantidad no puede ser vacia"),
     handleInputErrors,
     createNotification);
 

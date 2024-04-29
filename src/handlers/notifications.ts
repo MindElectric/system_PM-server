@@ -5,6 +5,10 @@ import { Op } from "sequelize";
 import Material from "../model/Material.model";
 import Usuario from "../model/Usuario.model";
 import { createEntity, deleteEntity } from "./rest_functions";
+import CategoriaMaterial from "../model/Categoria_Material.model";
+import Marca from "../model/Marca.model";
+import Area from "../model/Area.model";
+import Proveedor from "../model/Proveedor.model";
 
 
 
@@ -51,14 +55,23 @@ export const getNotifications = async (req: Request, res: Response) => {
             {
                 where: whereClause,
                 include: [
-                    { model: Material, as: 'material' },
+                    {
+                        model: Material,
+                        as: 'material',
+                        // include: [
+                        //     { model: CategoriaMaterial, as: 'categoriaMaterial' },
+                        //     { model: Marca, as: 'marca' },
+                        //     { model: Area, as: 'area' },
+                        //     {
+                        //         model: Proveedor,
+                        //         as: 'proveedores',
+                        //         through: { as: "MaterialProveedor" }
+                        //     }
+                        // ]
+
+                    },
                     { model: Usuario, as: 'user' },
-                    // { model: CategoriaMaterial, as: 'categoriaMaterial' },
-                    // {
-                    //     model: Proveedor,
-                    //     as: 'proveedores',
-                    //     through: { as: "MaterialProveedor" }
-                    // }
+
                 ]
             }
         )
