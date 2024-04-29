@@ -10,7 +10,8 @@ import {
     loginRouter,
     refreshRouter,
     logoutRouter,
-    notificationRouter
+    notificationRouter,
+    rolRouter
 } from '../routes/routes';
 import colors from "colors";
 import morgan from "morgan";
@@ -66,7 +67,7 @@ server.use(express.json());
 
 
 // Middleware for cookies
-//server.use(cookieParser());
+server.use(cookieParser());
 
 server.use(morgan("dev"))
 
@@ -76,9 +77,10 @@ server.use("/login", loginRouter);
 server.use("/api/refresh", refreshRouter);
 server.use("/logout", logoutRouter);
 server.use('/api/notifications', notificationRouter)
+server.use('/api/rol', rolRouter)
 
 //Check if user has token to view these routes
-//server.use(verifyJWT);
+server.use(verifyJWT);
 server.use("/api/marca", marcaRouter);
 server.use("/api/material", materialRouter);
 server.use("/api/categoria_material", categoria_materialRouter);

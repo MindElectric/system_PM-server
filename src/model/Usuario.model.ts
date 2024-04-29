@@ -30,6 +30,12 @@ class Usuario extends Model {
     })
     declare refresh_token: string;
 
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false
+    })
+    declare isActive: boolean;
+
     @ForeignKey(() => Area)
     @Column
     declare id_area: number;

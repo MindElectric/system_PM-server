@@ -18,6 +18,7 @@ router.post("/",
     body('password').notEmpty().withMessage("La contraseña no puede ser vacia"),
     body('id_area').isInt().withMessage("La contraseña no puede ser vacia"),
     body('id_rol').isInt().withMessage("La contraseña no puede ser vacia"),
+    body('isActive').isBoolean().notEmpty().withMessage("isActive no puede ser vacia"),
     handleInputErrors,
     createNewUsuario)
 
