@@ -31,6 +31,12 @@ class Notification extends Model {
     })
     declare cantidad: number;
 
+    @Column({
+        type: DataType.STRING(30),
+        allowNull: false
+    })
+    declare descripcion: string;
+
     @ForeignKey(() => Usuario)
     @Column
     declare user_id: number;

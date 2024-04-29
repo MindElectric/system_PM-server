@@ -1,6 +1,6 @@
 {
   "name": "proyecto_pm",
-  "version": "0.7.0",
+  "version": "0.7.3",
   "description": "Sistema de Pequeños Momentos",
   "main": "index.js",
   "scripts": {
