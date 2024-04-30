@@ -108,9 +108,6 @@ export const updateEntity = async (model: any, req: Request, res: Response) => {
         await entity.save()
 
         res.json({ data: entity });
-
-
-
     } catch (error) {
         console.log(error);
     }
@@ -119,7 +116,7 @@ export const updateEntity = async (model: any, req: Request, res: Response) => {
 export const deleteEntity = async (model: any, req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        //Revisar si la marca existe
+        //Revisar si la entidad existe
         const entity = await model.findByPk(id);
 
         if (!entity) {

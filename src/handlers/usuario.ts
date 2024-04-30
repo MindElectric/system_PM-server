@@ -5,6 +5,7 @@ import Rol from "../model/Rol.model";
 
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
+import { updateEntity } from "./rest_functions";
 require('dotenv').config();
 
 
@@ -23,6 +24,23 @@ export const getUsuario = async (req: Request, res: Response) => {
     }
     const data = user
     res.json({ data: data });
+}
+
+export const getUsuarioById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const user = await Usuario.findByPk(id, {
+        include: [
+            { model: Area, as: 'area' },
+            { model: Rol, as: 'rol' }
+        ]
+    });
+
+    if (!user) {
+        return res.status(404).json({
+            error: 'Material no encontrado'
+        })
+    }
+    res.json({ data: user });
 }
 
 
@@ -112,4 +130,27 @@ export const createNewUsuario = async (req: Request, res: Response) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+export const updateUsuario = async (req: Request, res: Response) => {
+    updateEntity(Usuario, req, res);
+}
+
+export const activeUsuario = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const usuario = await Usuario.findByPk(id);
+
+
+    if (!usuario) {
+        return res.status(404).json({
+            error: 'Entidad no encontrado'
+        })
+    };
+
+    usuario.isActive = !usuario.isActive;
+    await usuario.save();
+
+    res.json({ data: `Usuario cambiado a ${usuario.isActive}` })
+
 }

@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware";
-import { createNewUsuario, getUsuario } from "../handlers/usuario";
+import { activeUsuario, createNewUsuario, getUsuario, getUsuarioById, updateUsuario } from "../handlers/usuario";
 
 import { ROLES_LIST } from "../config/roles_list";
 import { verifyRol } from "../middleware/verifyRol";
@@ -10,6 +10,12 @@ import { verifyRol } from "../middleware/verifyRol";
 const router = Router();
 
 router.get("/", getUsuario)
+
+router.get("/:id",
+    param('id').isInt().withMessage("ID no valido"),
+    handleInputErrors,
+    getUsuarioById
+);
 
 router.post("/",
     //Solo administradores
@@ -21,6 +27,19 @@ router.post("/",
     body('isActive').isBoolean().notEmpty().withMessage("isActive no puede ser vacia"),
     handleInputErrors,
     createNewUsuario)
+
+router.put("/:id",
+    param("id").isInt().withMessage("ID no valido"),
+    handleInputErrors,
+    updateUsuario
+
+)
+
+router.patch('/:id',
+    param("id").isInt().withMessage("ID no valido"),
+    handleInputErrors,
+    activeUsuario
+)
 
 
 
