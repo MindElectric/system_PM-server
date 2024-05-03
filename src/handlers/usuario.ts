@@ -63,6 +63,13 @@ export const userLogin = async (req: Request, res: Response) => {
             error: 'Usuario no encontrado'
         })
     }
+
+    if (user.isActive === false) {
+        return res.status(403).json({
+            error: 'No autorizado'
+        })
+    }
+
     //evaluar contraseña
     const match = await bcrypt.compare(password, user.password);
 

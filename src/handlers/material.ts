@@ -25,7 +25,8 @@ export const getMaterial = async (req: Request, res: Response) => {
         const max: boolean = req.query.max ? req.query.max === 'true' : false;
         const min: boolean = req.query.min ? req.query.min === 'true' : false;
 
-
+        const marca: string = req.query.marca?.toString() || "All";
+        const proveedor: string = req.query.proveedor?.toString() || "All";
 
 
         const startIndex = (page - 1) * limit
@@ -50,6 +51,15 @@ export const getMaterial = async (req: Request, res: Response) => {
         if (category !== 'All') {
             whereClause['id_categoria_material'] = category;
         }
+
+        // Filtrar por marcas
+        if (marca !== 'All') {
+            whereClause['id_marca'] = marca
+        }
+
+        // if(proveedor !== "All") {
+        //     whereClause['id']
+        // }
 
         // Filter maximo
         if (max) {
