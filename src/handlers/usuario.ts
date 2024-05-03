@@ -158,6 +158,6 @@ export const activeUsuario = async (req: Request, res: Response) => {
     usuario.isActive = !usuario.isActive;
     await usuario.save();
 
-    res.json({ data: `Usuario cambiado a ${usuario.isActive}` })
+    res.json({ data: usuario.isActive })
 
 }

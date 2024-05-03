@@ -57,9 +57,9 @@ export const getMaterial = async (req: Request, res: Response) => {
             whereClause['id_marca'] = marca
         }
 
-        // if(proveedor !== "All") {
-        //     whereClause['id']
-        // }
+        if (proveedor !== "All") {
+            whereClause['$proveedores.id$'] = proveedor;
+        }
 
         // Filter maximo
         if (max) {
